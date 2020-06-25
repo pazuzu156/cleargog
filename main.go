@@ -1,41 +1,33 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"io/ioutil"
-	"os"
-	"strings"
+	"pazuzu156/cleargog/funcs"
 )
 
 func main() {
-	smPath := "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs"
-	reader := bufio.NewReader(os.Stdin)
-	files, err := ioutil.ReadDir(smPath)
-	x := 0
+	cg := funcs.New()
+	list, x := cg.GatherFilesToRemove()
 
-	if err != nil {
-		panic(err)
-	}
+	if x == 0 {
+		fmt.Println("There's nothing to remove from your Start Menu")
+	} else {
+		if x == -1 {
+			fmt.Println("No folders were selected to delete")
+		} else {
+			fmt.Println("GOG Folders to remove:")
+			cg.DisplayFilesToBeDeleted(list)
+			fmt.Printf("Continue? [Y/n] ")
+			ans, _ := cg.Readln()
 
-	for _, file := range files {
-		if file.IsDir() && strings.Contains(file.Name(), "[GOG.com]") {
-			x++
-			fmt.Printf("Remove %s? [Y/n] ", file.Name())
-			ans, _ := reader.ReadString('\n')
-
-			if strings.ToLower(strings.TrimSpace(ans)) == "y" {
-				err := os.RemoveAll(fmt.Sprintf("%s\\%s", smPath, file.Name()))
-
-				if err != nil {
-					panic(err)
-				}
+			if cg.IsAccepted(ans) {
+				cg.DeleteFiles(list)
+				fmt.Println("Task completed")
+			} else {
+				fmt.Println("No changes were made")
 			}
 		}
 	}
 
-	if x == 0 {
-		fmt.Println("There's nothing to remove from your Start Menu\nPress [ENTER] to close")
-		fmt.Scanln()
-	}
+	cg.TermLine()
 }
