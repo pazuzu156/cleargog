@@ -1,2 +1,4 @@
-resource.syso
-cleargog.exe
+.vs/
+.vscode/
+bin/
+obj/
