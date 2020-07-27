@@ -1,22 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-    <PropertyGroup>
-        <Version>2.0</Version>
-        <Authors>Kaleb Klein</Authors>
-        <Company>Kaleb Klein</Company>
-        <NeutralLanguage>en-US</NeutralLanguage>
-        <AssemblyTitle>ClearGOG</AssemblyTitle>
-        <Description>Clear GOG generated folders from Start Menu</Description>
-        <Copyright>2020 Kaleb Klein</Copyright>
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
-        <UseWPF>true</UseWPF>
-        <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
-        <PublishSingleFile>true</PublishSingleFile>
-        <PublishTrimmed>true</PublishTrimmed>
-        <ApplicationIcon>gog.ico</ApplicationIcon>
-        <ApplicationManifest>app.manifest</ApplicationManifest>
-    </PropertyGroup>
-    <ItemGroup>
-      <Resource Include="gog.ico" />
-    </ItemGroup>
+  <PropertyGroup>
+    <Version>2.0</Version>
+    <Authors>Kaleb Klein</Authors>
+    <Company>Kaleb Klein</Company>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <AssemblyTitle>ClearGOG</AssemblyTitle>
+    <Description>Clear GOG generated folders from Start Menu</Description>
+    <Copyright>2020 Kaleb Klein</Copyright>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <PublishSingleFile>true</PublishSingleFile>
+    <PublishTrimmed>true</PublishTrimmed>
+    <ApplicationIcon>gog.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="gog.ico" />
+  </ItemGroup>
 </Project>

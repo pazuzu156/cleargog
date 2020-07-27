@@ -4,10 +4,10 @@ title ClearGOG Build Script
 set CWD=%~dp0
 
 if "%1" NEQ "" (
-    if "%1" EQU "-c" goto clean
-    if "%1" EQU "-d" goto restore
-    if "%1" EQU "-h" goto help
-    if "%1" EQU "-r" goto run
+  if "%1" EQU "-c" goto clean
+  if "%1" EQU "-d" goto restore
+  if "%1" EQU "-h" goto help
+  if "%1" EQU "-r" goto run
 )
 
 :build
