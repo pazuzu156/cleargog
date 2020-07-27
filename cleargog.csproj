@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
     <PropertyGroup>
-        <VersionPrefix>0.1.0</VersionPrefix>
-        <VersionSuffix>alpha</VersionSuffix>
+        <Version>2.0</Version>
         <Authors>Kaleb Klein</Authors>
         <Company>Kaleb Klein</Company>
         <NeutralLanguage>en-US</NeutralLanguage>
@@ -17,9 +16,6 @@
         <ApplicationIcon>gog.ico</ApplicationIcon>
         <ApplicationManifest>app.manifest</ApplicationManifest>
     </PropertyGroup>
-    <ItemGroup>
-      <None Remove="gog.ico" />
-    </ItemGroup>
     <ItemGroup>
       <Resource Include="gog.ico" />
     </ItemGroup>
