@@ -11,7 +11,7 @@ if "%1" NEQ "" (
 )
 
 :build
-dotnet publish -c Release -v d
+dotnet publish -c Release /p:PublishSingleFile=true /p:PublishTrimmed=true -v d
 echo build complete
 
 :restore
@@ -19,7 +19,7 @@ dotnet restore
 goto end
 
 :run
-dotnet run -f netcoreapp3.1
+dotnet run -f netcoreapp3.1 -v d
 goto end
 
 :clean
