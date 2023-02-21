@@ -1,39 +1,21 @@
 <Window x:Class="cleargog.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
         Title="ClearGOG"
         Height="300"
         Width="450"
         WindowStartupLocation="CenterScreen"
         Icon="/gog.ico">
   <Grid>
-    <DockPanel>
-      <Menu IsMainMenu="True"
-            DockPanel.Dock="Top">
-        <MenuItem Header="_File">
-          <MenuItem Header="E_xit"
-                        x:Name="miExit"
-                        Click="MiExit_Click"/>
-        </MenuItem>
-        <MenuItem Header="_Help">
-          <MenuItem Header="_About"
-                        x:Name="miAbout"
-                        Click="MiAbout_Click"/>
-        </MenuItem>
-      </Menu>
-    </DockPanel>
     <ListView x:Name="lvGameList"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            MouseDoubleClick="LvGameList_MouseDoubleClick"
-            Margin="10,22,10,38">
+              MouseDoubleClick="LvGameList_MouseDoubleClick"
+              Margin="10,22,10,47">
       <ListView.View>
         <GridView>
           <GridViewColumn Header="Remove"
-                          Width="55">
+                          Width="100">
             <GridViewColumn.CellTemplate>
               <DataTemplate>
                 <StackPanel>
@@ -43,7 +25,7 @@
             </GridViewColumn.CellTemplate>
           </GridViewColumn>
           <GridViewColumn Header="Title"
-                          Width="348"
+                          Width="318"
                           DisplayMemberBinding="{Binding Title}"/>
         </GridView>
       </ListView.View>
@@ -52,10 +34,10 @@
           <GroupStyle.HeaderTemplate>
             <DataTemplate>
               <Border BorderThickness="0,0,0,1"
-                        BorderBrush="#FF042271">
+                      BorderBrush="#FF042271">
                 <TextBlock FontWeight="Bold"
-                              Text="{Binding Title}"
-                              Margin="5,0,0,0" />
+                           Text="{Binding Title}"
+                           Margin="5,0,0,0" />
               </Border>
             </DataTemplate>
           </GroupStyle.HeaderTemplate>
@@ -66,19 +48,57 @@
             Content="Commit Changes"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Margin="0,0,48,10"
-            Click="BCommit_Click"/>
+            Margin="0,0,67,10"
+            Click="BCommit_Click">
+      <ui:FlyoutService.Flyout>
+        <ui:Flyout x:Name="Flyout1">
+          <StackPanel>
+            <TextBlock x:Name="tbItemsToRemove"
+                       Style="{StaticResource BaseTextBlockStyle}"
+                       Text="ITEMS_TO_REMOVE" />
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0,10,0,0">
+              <Button x:Name="f1bYes"
+                      Content="Yes"
+                      Margin="0,0,10,0" />
+              <Button x:Name="f1bNo"
+                      Content="No" />
+            </StackPanel>
+          </StackPanel>
+        </ui:Flyout>
+      </ui:FlyoutService.Flyout>
+    </Button>
     <Button x:Name="bClose"
             Content="Close"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             Margin="0,0,10,10"
-            Click="BClose_Click"/>
+            Click="BClose_Click">
+      <ui:FlyoutService.Flyout>
+        <ui:Flyout x:Name="Flyout2">
+          <StackPanel>
+            <TextBlock Style="{StaticResource BaseTextBlockStyle}"
+                       Text="You have unsaved changes.&#x0a;Do you want to close ClearGOG?" />
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0,10,0,0">
+              <Button x:Name="f2bYes"
+                      Content="Yes"
+                      Margin="0,0,10,0" />
+              <Button x:Name="f2bNo"
+                      Content="No" />
+            </StackPanel>
+          </StackPanel>
+        </ui:Flyout>
+      </ui:FlyoutService.Flyout>
+    </Button>
     <Button x:Name="bSelectAll"
             Content="Select All"
+            Style="{StaticResource AccentButtonStyle}"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Margin="0,0,148,10"
+            Margin="0,0,196,10"
             Click="BSelectAll_Click"/>
   </Grid>
 </Window>

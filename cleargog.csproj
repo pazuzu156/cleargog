@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Version>2.2</Version>
     <Authors>Kaleb Klein</Authors>
@@ -8,7 +8,7 @@
     <Description>Clear GOG generated folders from Start Menu</Description>
     <Copyright>2020 Kaleb Klein</Copyright>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
     <ApplicationIcon>gog.ico</ApplicationIcon>
@@ -16,5 +16,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Resource Include="gog.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ModernWpfUi" Version="0.9.6" />
   </ItemGroup>
 </Project>

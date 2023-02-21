@@ -1,8 +1,8 @@
-using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using ModernWpf.Controls;
 
 namespace cleargog
 {
@@ -14,10 +14,19 @@ namespace cleargog
     readonly string smPath = @"C:\ProgramData\Microsoft\Windows\Start Menu\Programs";
     bool changed = false;
     bool selectedAll = false;
+    private readonly ObservableCollection<Item> itemsToRemove = new();
 
     public MainWindow() {
       InitializeComponent();
       GetGameList();
+
+      f1bYes.Click += (sender, e) => {
+        DeleteItems();
+        Flyout1.Hide();
+      };
+      f1bNo.Click += (sender, e) => {
+        Flyout1.Hide();
+      };
     }
 
     private void GetGameList() {
@@ -48,12 +57,7 @@ namespace cleargog
       public string Path { get; set; }
     }
 
-    private void MiExit_Click(object sender, RoutedEventArgs e) {
-      CloseApp();
-    }
-
     private void BCommit_Click(object sender, RoutedEventArgs e) {
-      var itemsToRemove = new ObservableCollection<Item>();
       foreach (Item item in lvGameList.Items) {
         if (item.Remove) {
           itemsToRemove.Add(item);
@@ -65,23 +69,28 @@ namespace cleargog
         foreach (var item in itemsToRemove) {
           t += item.Title + "\n";
         }
-        var r = MessageBox.Show($"Are you sure you want to remove the following from the Start Menu?\n\n{t}", "Confirmation",
-            MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-        if (r == MessageBoxResult.Yes) {
-          foreach (var item in itemsToRemove) {
-            Directory.Delete(item.Path, true);
-          }
-
-          lvGameList.ItemsSource = null;
-          GetGameList();
-          lvGameList.Items.Refresh();
-        }
+        tbItemsToRemove.Text = $"Are you sure you want to remove the following\nfrom the Start Menu?\n\n{t}";
+        f1bNo.Content = "No";
+        f1bYes.Visibility = Visibility.Visible;
       } else {
-        MessageBox.Show("There's nothing selected to remove", "Nothing To Remove", MessageBoxButton.OK, MessageBoxImage.Information);
+        tbItemsToRemove.Text = "There's nothing selected to remove";
+        f1bYes.Visibility = Visibility.Hidden;
+        f1bNo.Content = "Okay";
+      }
+    }
+
+    private void DeleteItems() {
+      foreach (var item in itemsToRemove) {
+        Directory.Delete(item.Path, true);
       }
 
+      lvGameList.ItemsSource= null;
+      GetGameList();
+      lvGameList.Items.Refresh();
+      bSelectAll.Content = "Select All";
       changed = false;
+      selectedAll = false;
     }
 
     private void BSelectAll_Click(object sender, RoutedEventArgs e) {
@@ -111,21 +120,13 @@ namespace cleargog
     }
 
     private void BClose_Click(object sender, RoutedEventArgs e) {
-      CloseApp();
-    }
-
-    private void MiAbout_Click(object sender, RoutedEventArgs e) {
-      MessageBox.Show("Simple tool for removing unwanted Start Menu items for GOG Galaxy installed games.",
-        "About ClearGOG", MessageBoxButton.OK, MessageBoxImage.Information);
-    }
-
-    private void CloseApp() {
       if (changed) {
-        var res = MessageBox.Show("You have unsaved changes. Do you want to close ClearGOG?", "Unsaved Changes", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-        if (res == MessageBoxResult.Yes) {
+        f2bYes.Click += (sender, e) => {
           App.Current.Shutdown();
-        }
+        };
+        f2bNo.Click += (sender, e) => {
+          Flyout2.Hide();
+        };
       } else {
         App.Current.Shutdown();
       }
